@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exam_HoTen.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,11 +10,14 @@ namespace Exam_HoTen
 {
     public partial class QTTour : System.Web.UI.Page
     {
-       
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!IsPostBack) LsvTour.DataBind();
         }
-       
+        protected void btTraCuu_Click(object sender, EventArgs e)
+        {
+            LsvTour.DataBind();
+        }
     }
 }

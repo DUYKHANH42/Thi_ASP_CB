@@ -80,6 +80,37 @@ namespace Exam_HoTen.Models
             }
             return ds;
         }
+        public Tour getByMaTour(int matour)
+        {
+            SqlConnection conn = getConnection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("select * from Tour where matour=@matour", conn);
+            cmd.Parameters.AddWithValue("@matour", matour);
+
+            SqlDataReader rd = cmd.ExecuteReader();
+
+            Tour tour = null;
+
+            if (rd.Read())
+            {
+                tour = new Tour
+                {
+                    MaTour = int.Parse(rd["matour"].ToString()),
+                    TenTour = rd["tentour"].ToString(),
+                    ChuongTrinh = rd["chuongtrinh"].ToString(),
+                    SoNgay = int.Parse(rd["songay"].ToString()),
+                    Dongia = int.Parse(rd["dongia"].ToString()),
+                    MDD = int.Parse(rd["mdd"].ToString()),
+                    Hinh = rd["hinh"].ToString()
+                };
+            }
+
+            rd.Close();
+            conn.Close();
+
+            return tour;
+        }
 
         public int Update(Tour item)
         {
@@ -99,12 +130,12 @@ namespace Exam_HoTen.Models
             }
         }
 
-        public int Delete(Tour item)
+        public int Delete(int matour)
         {
             SqlConnection conn = getConnection();
             conn.Open();
             SqlCommand cmd = new SqlCommand("delete from tour where matour=@matour", conn);
-            cmd.Parameters.AddWithValue("@matour", item.MaTour);
+            cmd.Parameters.AddWithValue("@matour", matour);
             return cmd.ExecuteNonQuery();
         }
         public int Insert(Tour item)
