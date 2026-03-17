@@ -36,7 +36,7 @@ namespace Exam_HoTen.Models
             List<Tour> ds = new List<Tour>();
             SqlConnection conn = getConnection();
             conn.Open();
-            SqlCommand cmd = new SqlCommand("select * from Tour where mdd=@mdd", conn);
+            SqlCommand cmd = new SqlCommand("select top 3 * from Tour where mdd=@mdd", conn);
             cmd.Parameters.AddWithValue("@mdd", mdd);
             SqlDataReader rd = cmd.ExecuteReader();
             while (rd.Read())
